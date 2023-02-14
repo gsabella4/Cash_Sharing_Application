@@ -90,7 +90,6 @@ public class JdbcTransferDao implements TransferDao{
         }
     }
 
-
     //Updates Transfer status and initiates transfer
     @Override
     public void respondToTransferRequest(int transferId, Account sendingAccount, Account receivingAccount, BigDecimal transferAmount, boolean approved) {

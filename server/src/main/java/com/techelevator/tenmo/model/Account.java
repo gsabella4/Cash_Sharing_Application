@@ -11,6 +11,7 @@ public class Account {
     //Constructor without parameters
     public Account() {
     }
+
     //Constructor with parameters
     public Account(int account_id, int user_id, BigDecimal balance) {
         this.account_id = account_id;

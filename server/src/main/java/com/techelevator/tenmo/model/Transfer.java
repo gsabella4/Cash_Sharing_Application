@@ -15,7 +15,6 @@ public class Transfer {
     private BigDecimal transfer_amount;
     private String transfer_status = "Approved";
 
-
     //Constructor without parameters
     public Transfer() {
     }
