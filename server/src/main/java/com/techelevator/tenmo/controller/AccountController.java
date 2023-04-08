@@ -47,7 +47,7 @@ public class AccountController {
      *
      */
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(value="/registerAccount", method=RequestMethod.POST)
+    @PostMapping(value = "/registerAccount")
     public void createAccount(Principal currentUser) {
         // Get the ID of the current user
         currentUserId = userDao.findByUsername(currentUser.getName()).getId();
@@ -56,7 +56,7 @@ public class AccountController {
         accountDao.create(currentUserId);
     }
 
-    @RequestMapping(path="/accounts/balance", method=RequestMethod.GET)
+    @GetMapping(path = "/accounts/balance")
     public BigDecimal getBalance(Principal currentUser) {
         // Check if currentUser is null
         if (currentUser == null) {
@@ -82,7 +82,7 @@ public class AccountController {
         return balance;
     }
 
-    @RequestMapping(path="/users", method=RequestMethod.GET)
+    @GetMapping(path = "/users")
     public Map<Integer, String> getUserList(Principal currentUser) {
         // Get the ID of the current user
         currentUserId = userDao.findByUsername(currentUser.getName()).getId();
@@ -100,7 +100,7 @@ public class AccountController {
         return userMap;
     }
 
-    @RequestMapping(path = "/transfer", method = RequestMethod.POST)
+    @PostMapping(path = "/transfer")
     public Transfer instantTransfer(@Valid @RequestBody Transfer transfer, Principal currentUser) {
         // Check if transfer and currentUser are null
         if (transfer == null || currentUser == null) {
@@ -147,7 +147,7 @@ public class AccountController {
     }
 
     //returns all transfer Objects related to current logged-in user
-    @RequestMapping(path= "/myTransfers", method= RequestMethod.GET)
+    @GetMapping(path = "/myTransfers")
     public List<Transfer> getMyTransferList(Principal principal){
          // Get the current user's ID
          currentUserId = userDao.findByUsername(principal.getName()).getId();
@@ -165,7 +165,7 @@ public class AccountController {
      }
 
     //returns Transfer object w/ given transfer_id(Path Variable)
-    @RequestMapping(path= "/transfer/{id}", method= RequestMethod.GET)
+    @GetMapping(path = "/transfer/{id}")
     public Transfer getTransferById(@PathVariable int id, Principal currentUser){
         // Get the current user's ID
         currentUserId = userDao.findByUsername(currentUser.getName()).getId();
@@ -183,7 +183,7 @@ public class AccountController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path="/request", method=RequestMethod.PUT)
+    @PutMapping(path = "/request")
     public String createRequest(@Valid @RequestBody Transfer transfer, Principal principal) {
         // Get the ID of the current user
         currentUserId = userDao.findByUsername(principal.getName()).getId();
@@ -219,7 +219,7 @@ public class AccountController {
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @RequestMapping(path = "/request/approve/{id}", method = RequestMethod.POST)
+    @PostMapping(path = "/request/approve/{id}")
     public String approveRequest(@Valid @PathVariable int id, Principal currentUser) {
         // Get the current user's ID
         currentUserId = userDao.findByUsername(currentUser.getName()).getId();
@@ -263,7 +263,7 @@ public class AccountController {
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @RequestMapping(path = "/request/reject/{id}", method = RequestMethod.POST)
+    @PostMapping(path = "/request/reject/{id}")
     public String rejectRequest(@Valid @PathVariable int id, Principal currentUser) {
         // Get the current user's ID
         currentUserId = userDao.findByUsername(currentUser.getName()).getId();
@@ -300,7 +300,7 @@ public class AccountController {
         }
     }
 
-    @RequestMapping(path= "/request/list", method= RequestMethod.GET)
+    @GetMapping(path = "/request/list")
     public List<Transfer> getMyRequestList(Principal currentUser){
         // Get the current user's ID
         currentUserId = userDao.findByUsername(currentUser.getName()).getId();

@@ -8,11 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.techelevator.tenmo.dao.UserDao;
 import com.techelevator.tenmo.model.LoginDTO;
@@ -39,7 +35,7 @@ public class AuthenticationController {
         this.accountDao = accountDao;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     public LoginResponse login(@Valid @RequestBody LoginDTO loginDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
@@ -55,7 +51,7 @@ public class AuthenticationController {
 
     //Register handler method - takes care of tenmo_user creation & initial account creation for that user
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @PostMapping(path = "/register")
     public void register(@Valid @RequestBody RegisterUserDTO newUser) {
         if (!userDao.createUser(newUser.getUsername(), newUser.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
