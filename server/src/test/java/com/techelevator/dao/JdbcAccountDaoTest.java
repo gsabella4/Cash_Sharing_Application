@@ -31,12 +31,14 @@ public class JdbcAccountDaoTest extends BaseDaoTests{
 
         sut = new JdbcAccountDao(jdbcTemplate);
     }
+
     @Test
     public void createNewAccount() {
         boolean userCreated = sut.create(USER_5.getId());
         Assert.assertTrue(userCreated);
         Assert.assertEquals(TEST_ACCOUNT.getUserId(),USER_5.getId());
     }
+
     @Test
     public void getFunds_returns_correct_balance_for_given_username_Bob() {
         String username = "bob";

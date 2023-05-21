@@ -77,7 +77,6 @@ public class JdbcTransferDaoTests extends BaseDaoTests {
         Assert.assertEquals(expectedSendingAccountBalance, actualSendingBalance);
     }
 
-
     @Test
     public void testGetAllTransfersFor2001() {
 

@@ -68,7 +68,6 @@ public class JdbcUserDaoTests extends BaseDaoTests{
         expected.put(1004, "Luka");
         expected.put(1005, "test");
 
-
         Map<Integer,String> availableUsers = sut.findAllUserIdAndName(USER_2.getId());
         Assert.assertEquals(expected.size(), availableUsers.size());
     }

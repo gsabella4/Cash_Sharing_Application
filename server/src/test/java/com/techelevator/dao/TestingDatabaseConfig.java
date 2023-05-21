@@ -61,7 +61,7 @@ public class TestingDatabaseConfig {
         dataSource.setPassword(DB_PASSWORD);
 
         /* The following line disables autocommit for connections
-         * returned by this DataSource. This allows us to rollback
+         * returned by this DataSource. This allows us to roll back
          * any changes after each test */
         dataSource.setAutoCommit(false);
 

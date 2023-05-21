@@ -133,7 +133,7 @@ public class AccountController {
                         transferDao.transfer(sendingAccount, receivingAccount, transfer.getTransfer_amount());
                         return transfer;
                     }
-                    // If the user associated with the receiving account doesn't exists in the map, throw exception
+                    // If the user associated with the receiving account doesn't exist in the map, throw exception
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Receiving user not found");
                 }
                 // If the sending and receiving accounts belong to same users, throw exception
