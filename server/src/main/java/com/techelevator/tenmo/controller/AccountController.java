@@ -56,6 +56,15 @@ public class AccountController {
         accountDao.create(currentUserId);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/admin/Users")
+    public List<User> findAll() {
+        if(userDao.findAll() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return userDao.findAll();
+    }
+
     @GetMapping(path = "/accounts/balance")
     public BigDecimal getBalance(Principal currentUser) {
         // Check if currentUser is null

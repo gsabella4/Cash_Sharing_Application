@@ -75,8 +75,8 @@ public class JdbcTransferDao implements TransferDao{
     @Override
     public boolean requestTransfer(Account sendingAccount, Account receivingAccount, BigDecimal transferAmount) {
         String sql = "INSERT INTO transfer " +
-                "(transfer_id, sending_account_id, receiving_account_id, transfer_amount, transfer_status) " +
-                "VALUES (Default, ?, ?, ?, ?) RETURNING transfer_id;";
+                        "(transfer_id, sending_account_id, receiving_account_id, transfer_amount, transfer_status) " +
+                     "VALUES (Default, ?, ?, ?, ?) RETURNING transfer_id;";
         try {
             jdbcTemplate.queryForObject(sql, Integer.class,
                     sendingAccount.getAccount_id(),
@@ -98,10 +98,10 @@ public class JdbcTransferDao implements TransferDao{
             sql = "UPDATE account " +
                     "SET balance = balance - ? " +
                     "WHERE user_id = ?; " +
-                    "UPDATE account " +
+                  "UPDATE account " +
                     "SET balance = balance + ? " +
                     "WHERE user_id = ?; " +
-                    "UPDATE transfer " +
+                  "UPDATE transfer " +
                     "SET transfer_status = 'Approved' " +
                     "WHERE transfer_id = ?; ";
         } else {
@@ -126,9 +126,9 @@ public class JdbcTransferDao implements TransferDao{
     public List<Transfer> getAllRequest(int user_id) {
         List<Transfer> allTransfers = new ArrayList<>();
         String sql = "SELECT transfer_id, sending_account_id, receiving_account_id, transfer_amount, transfer_status  FROM transfer " +
-                "JOIN account ON (transfer.sending_account_id = account.account_id) OR (transfer.receiving_account_id = account.account_id) " +
-                "JOIN tenmo_user ON account.user_id = tenmo_user.user_id " +
-                "WHERE tenmo_user.user_id = ? AND transfer_status = 'Pending';";
+                     "JOIN account ON (transfer.sending_account_id = account.account_id) OR (transfer.receiving_account_id = account.account_id) " +
+                     "JOIN tenmo_user ON account.user_id = tenmo_user.user_id " +
+                     "WHERE tenmo_user.user_id = ? AND transfer_status = 'Pending';";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user_id);
         while(results.next()){
             allTransfers.add(mapRowToTransfer(results));

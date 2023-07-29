@@ -74,6 +74,20 @@ public class JdbcUserDao implements UserDao {
         }
     }
 
+    //Admin Account Only
+    //Retrieve all active users
+    @Override
+    public List<User> findAll() {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT user_id, username, password_hash FROM tenmo_user;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while(results.next()) {
+            User user = mapRowToUser(results);
+            users.add(user);
+       }
+        return users;
+    }
+
     //helper method to create User object
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
@@ -85,16 +99,5 @@ public class JdbcUserDao implements UserDao {
         return user;
     }
 
-//    ADMIN ACCOUNT ONLY
-//    @Override
-//    public List<User> findAll() {
-//        List<User> users = new ArrayList<>();
-//        String sql = "SELECT user_id, username, password_hash FROM tenmo_user;";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-//        while(results.next()) {
-//            User user = mapRowToUser(results);
-//            users.add(user);
-//        }
-//        return users;
-//    }
+
 }
